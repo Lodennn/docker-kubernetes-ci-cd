@@ -16,13 +16,10 @@ jobs:
         uses: actions/checkout@v3
       - name: display environment vaiables
         run: |
-          echo | 
-            " 
-              MONGO_INITDB_DATABASE: $MONGO_INITDB_DATABASE
+          echo "MONGO_INITDB_DATABASE: $MONGO_INITDB_DATABASE
               MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
               MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
-              MONGO_DB_HOST: $MONGO_DB_HOST
-            "
+              MONGO_DB_HOST: $MONGO_DB_HOST"
       - name: Run mongodb container
         run: |
           docker run --name mongodb -v "D:\Programming\Courses\Docker, Kubernetes, CICD\challenge:/data/db" -e MONGO_INITDB_DATABASE=users -e MONGO_INITDB_ROOT_USERNAME=admin  -e MONGO_INITDB_ROOT_PASSWORD=secret  -e MONGO_DB_HOST=mongodb  mongo

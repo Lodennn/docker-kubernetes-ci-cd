@@ -4,8 +4,10 @@ on:
     branches:
       - develop
 jobs:
-  getter:
+  setup:
+    name: setting up project
     runs-on: ubuntu-latest
+    environment: development
     steps:
       - name: Get the code
         uses: actions/checkout@v3
@@ -13,12 +15,21 @@ jobs:
         uses: actions/cache@v3
         id: cache
         with:
-          key: dep-node-modules-${{ hashFiles('**/package-lock.json') }}
+          key: dep-node-modules-${{ github.sha }}
           path: ~/.npm
       - name: install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         working-directory: ./auth-api
         run: npm install
-      - name: run project
+  build:
+    needs: setup
+    name: build auth image
+    runs-on: ubuntu-latest
+    steps:
+      - name: build auth api image
         working-directory: ./auth-api
-        run: node auth-app.js
+        run: docker build -t auth-api .
+      - name: login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}
+      - name: push docker image
+        run: docker push auth-api

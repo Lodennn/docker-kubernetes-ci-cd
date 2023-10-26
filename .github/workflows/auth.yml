@@ -19,7 +19,7 @@ jobs:
           path: ~/.npm
       - name: install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        working-directory: ./auth-api
+        working-directory: auth-api
         run: npm install
   build:
     needs: setup
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build auth api image
-        working-directory: ./auth-api
+        working-directory: auth-api
         run: docker build -t auth-api .
       - name: login to docker hub
         run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}

@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=users
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_DB_HOST=mongodb
+    volumes:
+      - "D:/Programming/Courses/Docker, Kubernetes, CICD/challenge:/data/db"
+volumes:
+  data:

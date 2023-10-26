@@ -4,10 +4,10 @@ on:
     branches:
       - develop
 env:
-  MONGO_INITDB_DATABASE: users
-  MONGO_INITDB_ROOT_USERNAME: admin
-  MONGO_INITDB_ROOT_PASSWORD: secret
-  MONGO_DB_HOST: mongodb
+  MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
+  MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+  MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+  MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
 jobs:
   getter:
     name: "get the code"
@@ -16,6 +16,7 @@ jobs:
       - name: Get the code
         uses: actions/checkout@v3
   display:
+    environment: development
     name: "display environments variables"
     needs: getter
     runs-on: ubuntu-latest

@@ -28,7 +28,7 @@ jobs:
           MONGO_DB_HOST: $MONGO_DB_HOST"
   runner:
     needs: display
-    name: "run mongo container"
+    name: "run mongodb container"
     runs-on: ubuntu-latest
     steps:
       - name: Run mongodb container
@@ -48,4 +48,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check mongo container status
-        run: echo "mongodb container is running"
+        run: echo "mongodb container is running..."

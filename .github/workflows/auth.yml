@@ -34,4 +34,4 @@ jobs:
       - name: login to docker hub
         run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}
       - name: push docker image
-        run: docker push auth-api
+        run: docker push ${{ secrets.DOCKER_HUB_USER }}/auth-api:latest

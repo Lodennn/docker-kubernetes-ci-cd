@@ -26,6 +26,8 @@ jobs:
     name: build auth image
     runs-on: ubuntu-latest
     steps:
+      - name: Get the code
+        uses: actions/checkout@v3
       - name: build auth api image
         working-directory: auth-api
         run: docker build -t auth-api .

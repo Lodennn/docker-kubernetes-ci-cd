@@ -3,14 +3,15 @@ on:
   push:
     branches:
       - develop
+env:
+  MONGO_INITDB_DATABASE: users
+  MONGO_INITDB_ROOT_USERNAME: admin
+  MONGO_INITDB_ROOT_PASSWORD: secret
+  MONGO_DB_HOST: mongodb
 jobs:
   setup:
+    name: "setup the code"
     runs-on: ubuntu-latest
-    env:
-      MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: secret
-      MONGO_DB_HOST: mongodb
     steps:
       - name: Get the code
         uses: actions/checkout@v3

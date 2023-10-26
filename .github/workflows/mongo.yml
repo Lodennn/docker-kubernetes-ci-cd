@@ -1,8 +1,5 @@
 name: Setup mongodb
-on:
-  push:
-    branches:
-      - develop
+on: workflow_call
 env:
   MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
   MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}

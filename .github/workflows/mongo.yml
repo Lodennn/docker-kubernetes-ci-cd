@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Get the code
         uses: actions/checkout@v3
-      - name: Pull mongodb image
-        run: |
-          docker build -t mongodb mongo
       - name: display environment vaiables
         run: |
           echo | 

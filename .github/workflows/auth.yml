@@ -30,9 +30,9 @@ jobs:
         uses: actions/checkout@v3
       - name: build auth api image
         working-directory: auth-api
-        run: docker build -t auth-api .
+        run: docker build -t ${{ secrets.DOCKER_HUB_USER }}/auth-api .
       - name: login to docker hub
         run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}
       - name: push docker image
         working-directory: auth-api
-        run: docker push ${{ secrets.DOCKER_HUB_USER }}/auth-api
+        run: docker push ${{ secrets.DOCKER_HUB_USER }}/auth-api:latest

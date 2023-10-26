@@ -31,7 +31,7 @@ jobs:
     name: "run mongodb container"
     runs-on: ubuntu-latest
     outputs:
-      conatiner-status: ${{ steps.runner.outputs.container-status }}
+      container-status: ${{ steps.runner.outputs.container-status }}
     steps:
       - name: Run mongodb container
         id: runner
@@ -53,4 +53,4 @@ jobs:
     steps:
       - name: check mongo container status
         run: |
-          echo "${{ needs.runner.outputs.conatiner-status }} | mongodb container is healthy"
+          echo "${{ needs.runner.outputs.container-status }} | mongodb container is healthy"

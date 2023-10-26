@@ -28,11 +28,12 @@ jobs:
           MONGO_DB_HOST: $MONGO_DB_HOST"
   runner:
     needs: display
-    id: runner-job
     name: "run mongodb container"
     runs-on: ubuntu-latest
+    outputs:
+      conatiner-status: ${{ steps.runner.outputs.container-status }}
     steps:
-        - name: Run mongodb container
+      - name: Run mongodb container
         id: runner
         run: |
           docker run --name mongodb \
@@ -43,11 +44,13 @@ jobs:
           --rm \
           -d \
           mongo
+      - name: Getting mongodb container status
+        run: echo "container-status=success" >> "$GITHUB_OUTPUT"
   checker:
     needs: runner
     name: "check mongo container status"
     runs-on: ubuntu-latest
-    if: success() && ${{ needs.runner-job.steps.runner.outcome.success }}
     steps:
       - name: check mongo container status
-        run: echo "mongodb container is healthy"
+        run: |
+          echo "${{ needs.runner.outputs.conatiner-status }} | mongodb container is healthy"

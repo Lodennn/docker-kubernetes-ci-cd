@@ -1,0 +1,22 @@
+name: Auth Workflow
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  getter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: cache dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          key: dep-node-modules-${{ hashFiles('**/package-lock.json') }}
+          path: node_modules
+      - name: install dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: npm ci
+      - name: run project
+        run: node auth-app.js

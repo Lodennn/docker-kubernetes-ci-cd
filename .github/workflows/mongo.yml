@@ -43,7 +43,6 @@ jobs:
           -e MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD \
           -e MONGO_DB_HOST=$MONGO_DB_HOST \
           --rm \
-          -d \
           mongo
       - name: Getting mongodb container status
         run: echo "container-status=success" >> "$GITHUB_OUTPUT"
@@ -53,5 +52,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check mongo container status
-        run: |
-          echo "${{ needs.runner.outputs.container-status }} | mongodb container is healthy"
+        run: echo "${{ needs.runner.outputs.container-status }} | mongodb container is healthy"

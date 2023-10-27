@@ -28,6 +28,7 @@ jobs:
       MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
       MONGO_DB_HOST: mongodb
       AUTH_API_ADDRESS: auth:3000
+      LISTEN: false
     services:
       mongodb:
         image: mongo
@@ -41,12 +42,15 @@ jobs:
         image: lodenn/auth-api:latest
         env:
           TOKEN_KEY: secrettoken
+          LISTEN: false
         ports:
           - 3000:3000
       users:
         image: lodenn/users-api:latest
         ports:
           - 80:80
+        env:
+          LISTEN: false
     steps:
       - name: Get the code
         uses: actions/checkout@v3

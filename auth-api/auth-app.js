@@ -30,4 +30,6 @@ app.use((err, req, res, next) => {
   res.status(code).json({ message: message });
 });
 
-app.listen(3000);
+if (process.env.LISTEN) {
+  app.listen(3000);
+}

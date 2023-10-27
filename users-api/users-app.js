@@ -50,7 +50,9 @@ delay(7000)
           console.log(
             `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`
           );
-          app.listen(80);
+          if (process.env.LISTEN) {
+            app.listen(80);
+          }
         }
       }
     );

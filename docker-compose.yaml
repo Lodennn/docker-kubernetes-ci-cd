@@ -17,6 +17,8 @@ services:
       - 80:3000
     environment:
       - TOKEN_KEY=secrettoken
+    depends_on:
+      - mongodb
   users:
     container_name: users-app
     # build: "./users-api"

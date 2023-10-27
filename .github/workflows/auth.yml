@@ -13,4 +13,4 @@ jobs:
     uses: ./.github/workflows/image-builder.yml
     with:
       working_dir: auth-api
-      image: auth-api
+      image: auth-api:latest

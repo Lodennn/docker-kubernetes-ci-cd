@@ -44,7 +44,17 @@ jobs:
         ports:
           - 3000:3000
     steps:
-      - name: setup the code
-        uses: ./.github/workflows/setup.yml
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: cache dependencies
+        uses: actions/cache@v3
+        id: cache
         with:
-          working_dir: users-api
+          key: dep-node-modules-${{ github.sha }}
+          path: ~/.npm
+      - name: check working_dir
+        run: echo "${{ inputs.working_dir }}"
+      - name: install dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        working-directory: ${{ inputs.working_dir }}
+        run: npm install

@@ -29,8 +29,6 @@ jobs:
         run: echo "${{ inputs.working_dir }} - ${{ inputs.image }}"
       - name: build ${{ inputs.image }} image
         working-directory: ${{ inputs.working_dir }}
-        env:
-          TOKEN_KEY: topsecrettoken
         run: |
           echo "docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} ."
           docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} .

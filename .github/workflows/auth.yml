@@ -7,7 +7,7 @@ jobs:
   setup:
     name: setting up project
     runs-on: ubuntu-latest
-    environment: development
+    environment: testing
     steps:
       - name: Get the code
         uses: actions/checkout@v3

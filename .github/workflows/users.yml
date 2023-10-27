@@ -20,15 +20,16 @@ jobs:
   test-database:
     needs: build
     runs-on: ubuntu-latest
-    # container:
-    #   image: lodenn/users-api:latest
-    env:
-      MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
-      MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
-      MONGO_DB_HOST: mongodb
-      AUTH_API_ADDRESS: auth:3000
-      LISTEN: false
+    container:
+      image: lodenn/users-api:latest
+      ports:
+        - 80:80
+      env:
+        MONGO_INITDB_DATABASE: users
+        MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+        MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+        MONGO_DB_HOST: mongodb
+        LISTEN: false
     services:
       mongodb:
         image: mongo
@@ -38,19 +39,6 @@ jobs:
           MONGO_INITDB_DATABASE: users
           MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
           MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
-      auth:
-        image: lodenn/auth-api:latest
-        env:
-          TOKEN_KEY: secrettoken
-          LISTEN: false
-        ports:
-          - 3000:3000
-      users:
-        image: lodenn/users-api:latest
-        ports:
-          - 80:80
-        env:
-          LISTEN: false
     steps:
       - name: Get the code
         uses: actions/checkout@v3
@@ -64,6 +52,3 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         working-directory: users-api
         run: npm install
-      - name: run users container
-        working-directory: users-api
-        run: node users-app.js

@@ -2,7 +2,7 @@ name: Users Workflow
 on:
   push:
     branches:
-      - develop
+      - users
 jobs:
   setup:
     uses: ./.github/workflows/setup.yml

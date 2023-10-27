@@ -2,7 +2,7 @@ name: Auth Workflow
 on:
   push:
     branches:
-      - develop
+      - auth
 jobs:
   setup:
     uses: ./.github/workflows/setup.yml

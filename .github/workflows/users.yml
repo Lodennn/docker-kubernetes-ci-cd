@@ -20,14 +20,14 @@ jobs:
   test-database:
     needs: build
     runs-on: ubuntu-latest
-    container:
-      image: lodenn/users-api:latest
-    env:
-      MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
-      MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
-      MONGO_DB_HOST: mongodb
-      AUTH_API_ADDRESS: auth:3000
+    # container:
+    #   image: lodenn/users-api:latest
+    # env:
+    #   MONGO_INITDB_DATABASE: users
+    #   MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+    #   MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+    #   MONGO_DB_HOST: mongodb
+    #   AUTH_API_ADDRESS: auth:3000
     services:
       mongodb:
         image: mongo
@@ -43,6 +43,18 @@ jobs:
           TOKEN_KEY: secrettoken
         ports:
           - 3000:3000
+      users:
+        image: lodenn/users-api:latest
+        env:
+          MONGO_INITDB_DATABASE: users
+          MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+          MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+          #   MONGO_DB_HOST: mongodb
+          MONGO_DB_HOST: 127.0.0.1:27017
+          #   AUTH_API_ADDRESS: auth:3000
+          AUTH_API_ADDRESS: 127.0.0.1:3000
+        ports:
+          - 80:80
     steps:
       - name: Get the code
         uses: actions/checkout@v3

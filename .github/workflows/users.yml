@@ -18,6 +18,7 @@ jobs:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
   test-database:
+    needs: build
     runs-on: ubuntu-latest
     container:
       image: lodenn/users-api:latest

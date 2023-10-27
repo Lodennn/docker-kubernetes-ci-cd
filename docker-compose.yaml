@@ -32,7 +32,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
       - MONGO_DB_HOST=mongodb
-      - AUTH_API_ADDRESS=auth
+      - AUTH_API_ADDRESS=auth:3000
     depends_on:
       - mongodb
       - auth

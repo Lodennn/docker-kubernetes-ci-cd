@@ -17,3 +17,33 @@ jobs:
     secrets:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
+  test-database:
+    runs-on: ubuntu-latest
+    container:
+      image: lodenn/users-api:latest
+    env:
+      MONGO_INITDB_DATABASE: users
+      MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+      MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+      MONGO_DB_HOST: mongodb
+      AUTH_API_ADDRESS: auth:3000
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_DATABASE: users
+          MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+          MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+      auth:
+        image: lodenn/auth-api:latest
+        env:
+          TOKEN_KEY: secrettoken
+        ports:
+          - 3000:3000
+    steps:
+      - name: setup the code
+        uses: ./.github/workflows/setup.yml
+        with:
+          working_dir: users-api

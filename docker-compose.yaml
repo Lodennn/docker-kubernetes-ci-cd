@@ -7,7 +7,6 @@ services:
       - MONGO_INITDB_DATABASE=users
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
-      - SHOULD_LISTEN=true
     ports:
       - 27017:27017
     volumes:
@@ -34,7 +33,6 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
       - MONGO_DB_HOST=mongodb
       - AUTH_API_ADDRESS=auth:3000
-      - SHOULD_LISTEN=true
     depends_on:
       - mongodb
       - auth

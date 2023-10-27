@@ -9,6 +9,7 @@ jobs:
     with:
       working_dir: users-api
   build:
+    needs: setup
     uses: ./.github/workflows/image-builder.yml
     with:
       working_dir: users-api

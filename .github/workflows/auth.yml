@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - auth
+env:
+  SHOULD_LISTEN: false
+  TOKEN_KEY: secrettoken
 jobs:
   setup:
     uses: ./.github/workflows/setup.yml

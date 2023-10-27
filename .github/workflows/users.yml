@@ -37,6 +37,7 @@ jobs:
           MONGO_INITDB_DATABASE: users
           MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
           MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+          SHOULD_LISTEN: false
       auth:
         image: lodenn/auth-api:latest
         env:
@@ -49,6 +50,7 @@ jobs:
           MONGO_INITDB_DATABASE: users
           MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
           MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+          SHOULD_LISTEN: false
           #   MONGO_DB_HOST: mongodb
           MONGO_DB_HOST: 127.0.0.1:27017
           #   AUTH_API_ADDRESS: auth:3000
@@ -70,3 +72,5 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         working-directory: ${{ inputs.working_dir }}
         run: npm install
+      - name: run users container
+        run: node users-app.js

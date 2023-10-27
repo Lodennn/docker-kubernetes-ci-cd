@@ -10,13 +10,12 @@ on:
         required: true
         type: string
         description: image name to be built/pushed
-      docker-hub-user:
+    secrets:
+      docker_hub_user:
         required: true
-        type: string
         description: docker repo username to upload the image
-      docker-hub-pass:
+      docker_hub_pass:
         required: true
-        type: string
         description: docker repo password to upload the image
 jobs:
   build:
@@ -33,10 +32,10 @@ jobs:
         env:
           TOKEN_KEY: topsecrettoken
         run: |
-          echo "docker build -t ${{ inputs.docker-hub-user }}/${{ inputs.image }} ."
-          docker build -t ${{ inputs.docker-hub-user }}/${{ inputs.image }} .
+          echo "docker build -t ${{ inputs.docker_hub_user }}/${{ inputs.image }} ."
+          docker build -t ${{ inputs.docker_hub_user }}/${{ inputs.image }} .
       - name: login to docker hub
-        run: docker login -u ${{ inputs.docker-hub-user }} -p ${{ inputs.docker-hub-pass }}
+        run: docker login -u ${{ inputs.docker_hub_user }} -p ${{ inputs.docker_hub_pass }}
       - name: push docker image
         working-directory: ${{ inputs.image }}
-        run: docker push ${{ inputs.docker-hub-user }}/${{ inputs.image }}:latest
+        run: docker push ${{ inputs.docker_hub_user }}/${{ inputs.image }}:latest

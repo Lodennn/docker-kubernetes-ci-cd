@@ -14,5 +14,6 @@ jobs:
     with:
       working_dir: auth-api
       image: auth-api
-      docker-hub-user: ${{ secrets.DOCKER_HUB_USER }}
-      docker-hub-pass: ${{ secrets.DOCKER_HUB_PASS }}
+    secrets:
+      docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
+      docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}

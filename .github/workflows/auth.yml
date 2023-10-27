@@ -6,22 +6,25 @@ on:
 jobs:
   setup:
     name: setting up project
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-      - name: Get the code
-        uses: actions/checkout@v3
-      - name: cache dependencies
-        uses: actions/cache@v3
-        id: cache
-        with:
-          key: dep-node-modules-${{ github.sha }}
-          path: ~/.npm
-      - name: install dependencies
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        working-directory: auth-api
-        run: npm install
+    uses: ./.github/workflows/reusable/setup.yml
+    with:
+      working_dir: auth-api
+    # runs-on: ubuntu-latest
+    # steps:
+    # - name: Get the code
+    #   uses: actions/checkout@v3
+    # - name: cache dependencies
+    #   uses: actions/cache@v3
+    #   id: cache
+    #   with:
+    #     key: dep-node-modules-${{ github.sha }}
+    #     path: ~/.npm
+    # - name: install dependencies
+    #   if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+    #   working-directory: auth-api
+    #   run: npm install
   build:
+    environment: development
     needs: setup
     name: build auth image
     runs-on: ubuntu-latest

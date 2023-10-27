@@ -16,19 +16,19 @@ services:
       - 80:3000
     environment:
       - TOKEN_KEY=secrettoken
-  # users:
-  #   container_name: users-app
-  #   build: "./users-api"
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - MONGO_INITDB_DATABASE=users
-  #     - MONGO_INITDB_ROOT_USERNAME=admin
-  #     - MONGO_INITDB_ROOT_PASSWORD=secret
-  #     - MONGO_DB_HOST=mongodb
-  #     - AUTH_API_ADDRESS=""
-  #   depends_on:
-  #     - mongodb
-  #     - auth
+  users:
+    container_name: users-app
+    build: "./users-api"
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_INITDB_DATABASE=users
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_DB_HOST=mongodb
+      - AUTH_API_ADDRESS=auth
+    depends_on:
+      - mongodb
+      - auth
 volumes:
   data:

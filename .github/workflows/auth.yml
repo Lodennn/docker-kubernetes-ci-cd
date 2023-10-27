@@ -13,4 +13,6 @@ jobs:
     uses: ./.github/workflows/image-builder.yml
     with:
       working_dir: auth-api
-      image: auth-api:latest
+      image: auth-api
+      docker-hub-user: ${{ secrets.DOCKER_HUB_USER }}
+      docker-hub-pass: ${{ secrets.DOCKER_HUB_PASS }}

@@ -32,10 +32,10 @@ jobs:
         env:
           TOKEN_KEY: topsecrettoken
         run: |
-          echo "docker build -t ${{ inputs.docker_hub_user }}/${{ inputs.image }} ."
-          docker build -t ${{ inputs.docker_hub_user }}/${{ inputs.image }} .
+          echo "docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} ."
+          docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} .
       - name: login to docker hub
-        run: docker login -u ${{ inputs.docker_hub_user }} -p ${{ inputs.docker_hub_pass }}
+        run: docker login -u ${{ secrets.docker_hub_user }} -p ${{ secrets.docker_hub_pass }}
       - name: push docker image
         working-directory: ${{ inputs.image }}
-        run: docker push ${{ inputs.docker_hub_user }}/${{ inputs.image }}:latest
+        run: docker push ${{ secrets.docker_hub_user }}/${{ inputs.image }}:latest

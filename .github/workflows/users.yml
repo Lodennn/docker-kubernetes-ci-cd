@@ -64,11 +64,10 @@ jobs:
         with:
           key: dep-node-modules-${{ github.sha }}
           path: ~/.npm
-      - name: check working_dir
-        run: echo "${{ inputs.working_dir }}"
       - name: install dependencies
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        working-directory: ${{ inputs.working_dir }}
+        working-directory: user-api
         run: npm install
       - name: run users container
-        run: node users-api/users-app.js
+        working-directory: user-api
+        run: node users-app.js

@@ -7,7 +7,7 @@ jobs:
   setup:
     name: setting up project
     runs-on: ubuntu-latest
-    environment: testing
+    environment: development
     steps:
       - name: Get the code
         uses: actions/checkout@v3
@@ -30,6 +30,8 @@ jobs:
         uses: actions/checkout@v3
       - name: build auth api image
         working-directory: auth-api
+        env:
+          TOKEN_KEY: topsecrettoken
         run: docker build -t ${{ secrets.DOCKER_HUB_USER }}/auth-api .
       - name: login to docker hub
         run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }}

@@ -26,12 +26,14 @@ const verifyPasswordHash = async (password, hashedPassword) => {
 };
 
 const createToken = (userId) => {
+  console.log("process.env.TOKEN_KEY: ", process.env.TOKEN_KEY);
   return jwt.sign({ uid: userId }, process.env.TOKEN_KEY, {
     expiresIn: "1h",
   });
 };
 
 const verifyToken = (token) => {
+  console.log("process.env.TOKEN_KEY: ", process.env.TOKEN_KEY);
   try {
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
     return decodedToken;

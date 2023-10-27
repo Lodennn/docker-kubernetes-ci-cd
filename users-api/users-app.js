@@ -30,20 +30,10 @@ app.use((err, req, res, next) => {
   res.status(code).json({ message: message });
 });
 
-const delay = (duration) => {
-  return new Promise((resolve, reject) => {
-    let timer;
-    try {
-      timer = setTimeout(resolve, duration);
-    } catch (err) {
-      console.log("DATABASE ERROR: ", err);
-      reject(err);
-      clearTimeout(timer);
-    }
-  });
-};
+const delay = (miliseconds) =>
+  new Promise((res) => setTimeout(res, miliseconds));
 
-delay(5000)
+delay(7000)
   .then((_) => {
     mongoose.connect(
       `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`,

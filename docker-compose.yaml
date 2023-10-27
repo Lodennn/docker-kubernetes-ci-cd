@@ -8,17 +8,19 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
-      - "D:/Programming/Courses/Docker, Kubernetes, CICD/challenge:/data/db"
+      - data:/data/db
   auth:
     container_name: auth-app
-    build: "./auth-api"
+    # build: "./auth-api"
+    image: lodenn/auth-api:latest
     ports:
       - 80:3000
     environment:
       - TOKEN_KEY=secrettoken
   users:
     container_name: users-app
-    build: "./users-api"
+    # build: "./users-api"
+    image: lodenn/users-api:latest
     ports:
       - 3000:3000
     environment:

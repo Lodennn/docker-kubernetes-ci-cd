@@ -1,4 +1,4 @@
-name: Setup Workflow
+name: Setup (get the code, cache, install dependencies) Workflow
 on:
   workflow_call:
     inputs:

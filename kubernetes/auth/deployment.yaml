@@ -17,4 +17,4 @@ spec:
           image: lodenn/auth-api:latest
           env:
             - name: TOKEN_KEY
-              value: secrettoken!
+              value: secrettoken

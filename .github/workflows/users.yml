@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display information
-        run: ${{ github.workspace }}
+        run: echo "${{ github.workspace }}"
       - name: Getting the code
         uses: ./.github/workflows/setup.yml
         with:

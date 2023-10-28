@@ -71,7 +71,7 @@ jobs:
       - name: Add cluster and user info to kubectl
         run: |
           kubeadm join 192.168.0.18:6443 --token g07yws.m8e0un305ajbeyqy \
-          --discovery-token-ca=cert=hash sha256:ad6d305c46464992d48be40885£59acdd4e08b21a105380044028ab2935e4176
+          --discovery-token-ca-cert-hash sha256:ad6d305c46464992d48be40885£59acdd4e08b21a105380044028ab2935e4176
 
       - name: Deploy to Minikube
         run: |

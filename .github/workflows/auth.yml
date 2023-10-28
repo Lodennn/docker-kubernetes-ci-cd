@@ -29,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUB_WORKING_DIR: kubernetes/auth
+      KUBCONFIG: ${{ secrets.KUBCONFIG }}
+
     steps:
       - name: Get the code
         uses: actions/checkout@v3
@@ -38,9 +40,22 @@ jobs:
       # - name: get pods
       #   working-directory: kubernetes/auth
       #   run: kubectl apply -f service.yaml
-      - name: Configure kubectl
-        run: |
-          kubectl config use-context minikube
-      - name: Deploy Application
-        run: |
-          kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
+      # -----------------------------------------------------------------------
+      # - name: Configure kubectl
+      #   run: |
+      #     kubectl config use-context minikube
+      # - name: Deploy Application
+      #   run: |
+      #     kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
+      # -----------------------------------------------------------------------
+      - name: Config minikube
+        uses: tilt-dev/minikube-local@v0.1.0
+        with:
+          minikube-version: "1.26.1"
+          kubernetes-version: "1.24.0"
+
+      - name: Apply the deployment yaml file
+        run: kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
+
+      - name: Check the service been created in minikube
+        run: kubectl get services

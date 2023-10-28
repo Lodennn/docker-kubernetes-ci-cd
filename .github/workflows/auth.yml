@@ -48,14 +48,19 @@ jobs:
       #   run: |
       #     kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
       # -----------------------------------------------------------------------
-      - name: Config minikube
-        uses: tilt-dev/minikube-local
-        with:
-          minikube-version: "1.26.1"
-          kubernetes-version: "1.24.0"
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v1
 
-      - name: Apply the deployment yaml file
-        run: kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
+      - name: Configure kubectl context
+        run: |
+          kubectl config set-context minikube-remote --cluster=minikube-remote --user=minikube-remote
+          kubectl config use-context minikube-remote
 
-      - name: Check the service been created in minikube
-        run: kubectl get services
+      - name: Add cluster and user info to kubectl
+        run: |
+          kubectl config set-cluster minikube-remote --server=http://121c-45-243-168-75.ngrok.io --insecure-skip-tls-verify=true
+          kubectl config set-credentials minikube-remote
+
+      - name: Deploy to Minikube
+        run: |
+          kubectl apply -f ${{ env.KUB_WORKING_DIR }}/service.yaml

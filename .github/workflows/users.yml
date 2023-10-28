@@ -26,7 +26,10 @@ jobs:
         run: npm install --save-dev @shelf/jest-mongodb
       - name: Run test
         working-directory: users-api
-        run: npm run test
+        run: |
+          ls
+          cat package.json
+          npm run test
   build:
     needs: test
     uses: ./.github/workflows/image-builder.yml

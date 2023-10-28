@@ -28,6 +28,8 @@ jobs:
     needs: build-auth-image
     runs-on: ubuntu-latest
     steps:
+      - name: Get the code
+        uses: actions/checkout@v3
       - name: start minikube
         id: minikube
         uses: medyagh/setup-minikube@master

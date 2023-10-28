@@ -5,9 +5,17 @@ on:
       - users
 jobs:
   setup:
-    uses: ./.github/workflows/setup.yml
-    with:
-      working_dir: users-api
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup the code
+        uses: ./.github/workflows/setup.yml
+        with:
+          working_dir: users-api
+      - name: Install extra dependencies for testing
+        working-directory: users-api
+        run: npm install --save-dev @shelf/jest-mongodb
+      - name: Run test
+        run: npm run test
   build:
     needs: setup
     uses: ./.github/workflows/image-builder.yml
@@ -17,38 +25,3 @@ jobs:
     secrets:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
-  test-database:
-    needs: build
-    runs-on: ubuntu-latest
-    container:
-      image: lodenn/users-api:latest
-      ports:
-        - 80:80
-      env:
-        MONGO_INITDB_DATABASE: users
-        MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
-        MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
-        MONGO_DB_HOST: mongodb
-        LISTEN: false
-    services:
-      mongodb:
-        image: mongo
-        ports:
-          - 27017:27017
-        env:
-          MONGO_INITDB_DATABASE: users
-          MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
-          MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
-    steps:
-      - name: Get the code
-        uses: actions/checkout@v3
-      - name: cache dependencies
-        uses: actions/cache@v3
-        id: cache
-        with:
-          key: dep-node-modules-${{ github.sha }}
-          path: users-api/~/.npm
-      - name: install dependencies
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        working-directory: users-api
-        run: npm install

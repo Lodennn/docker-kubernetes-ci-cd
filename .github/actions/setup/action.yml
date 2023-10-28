@@ -1,5 +1,9 @@
 name: Setup
 description: this uses for (caching the code, install dependencies) Workflow
+inputs:
+  working_dir:
+    required: true
+    description: this is to detect which app should install its dependencies
 runs:
   using: "composite"
   steps:

@@ -5,13 +5,23 @@ on:
       - users
 jobs:
   test:
+    runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
-      MONGO_DB_HOST: mongodb
-      AUTH_API_ADDRESS: auth:3000
-    runs-on: ubuntu-latest
+      MONGO_DB_HOST: 127.0.0.1:27017
+      # AUTH_API_ADDRESS: auth:3000
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_DATABASE: users
+          MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
+          MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+
     steps:
       - name: Get the code
         uses: actions/checkout@v3

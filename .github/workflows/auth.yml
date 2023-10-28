@@ -27,12 +27,20 @@ jobs:
   kubernetes:
     needs: build-auth-image
     runs-on: ubuntu-latest
+    env:
+      KUB_WORKING_DIR: kubernetes/auth
     steps:
       - name: Get the code
         uses: actions/checkout@v3
-      - name: start minikube
-        id: minikube
-        uses: medyagh/setup-minikube@master
-      - name: get pods
-        working-directory: kubernetes/auth
-        run: kubectl apply -f service.yaml
+      # - name: start minikube
+      #   id: minikube
+      #   uses: medyagh/setup-minikube@master
+      # - name: get pods
+      #   working-directory: kubernetes/auth
+      #   run: kubectl apply -f service.yaml
+      - name: Configure kubectl
+        run: |
+          kubectl config use-context minikube
+      - name: Deploy Application
+        run: |
+          kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml

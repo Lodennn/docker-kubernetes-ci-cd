@@ -6,10 +6,6 @@ describe("insert", () => {
 
   beforeAll(async () => {
     try {
-      console.log(
-        "DATABASE MONGO URI: ",
-        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
-      );
       //   connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
       connection = await MongoClient.connect(
         `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,

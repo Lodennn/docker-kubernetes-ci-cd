@@ -51,7 +51,7 @@ jobs:
           name: database-connection-test-report
           path: ./users-api/reports/
 
-  build:
+  build-users-image:
     needs: test
     uses: ./.github/workflows/image-builder.yml
     with:

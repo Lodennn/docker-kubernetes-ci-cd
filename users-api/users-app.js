@@ -66,19 +66,8 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (err) {
-      console.log("ERROR: ", err);
-      console.log("COULD NOT CONNECT TO MONGODB%%%%%%%%%%%%");
-      console.log(
-        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`
-      );
     } else {
-      console.log("DATABASE CONNECTED SUCCESSFULLY");
-      console.log(
-        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`
-      );
-      if (process.env.LISTEN) {
-        app.listen(80);
-      }
+      app.listen(80);
     }
   }
 );

@@ -7,10 +7,15 @@ env:
   TOKEN_KEY: secrettoken
 jobs:
   setup:
-    uses: ./.github/workflows/setup.yml
-    with:
-      working_dir: auth-api
-  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install main dependencies
+        uses: ./.github/actions/setup
+        with:
+          working_dir: users-api
+  build-auth-image:
     needs: setup
     uses: ./.github/workflows/image-builder.yml
     with:
@@ -19,3 +24,8 @@ jobs:
     secrets:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create kubernetes services
+        run: kubectl version

@@ -53,13 +53,13 @@ jobs:
 
       - name: Configure kubectl context
         run: |
-          kubectl config set-context minikube-remote --cluster=minikube-remote --user=minikube-remote
-          kubectl config use-context minikube-remote
+          kubectl config set-context minikube --cluster=minikube --user=minikube
+          kubectl config use-context minikube
 
       - name: Add cluster and user info to kubectl
         run: |
-          kubectl config set-cluster minikube-remote --server=https://a3c1-45-243-168-75.ngrok-free.app/ --insecure-skip-tls-verify=true
-          kubectl config set-credentials minikube-remote
+          kubectl config set-cluster minikube --server=https://a3c1-45-243-168-75.ngrok-free.app/ --insecure-skip-tls-verify=true
+          kubectl config set-credentials minikube
 
       - name: Deploy to Minikube
         run: |

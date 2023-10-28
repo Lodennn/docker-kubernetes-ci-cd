@@ -2,6 +2,7 @@ name: Users Workflow
 on:
   push:
     branches:
+      - main
       - users
 jobs:
   test:

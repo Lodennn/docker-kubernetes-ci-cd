@@ -2,6 +2,7 @@ name: Auth Workflow
 on:
   push:
     branches:
+      - main
       - auth
 env:
   TOKEN_KEY: secrettoken

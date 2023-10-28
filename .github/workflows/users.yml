@@ -4,17 +4,9 @@ on:
     branches:
       - users
 jobs:
-  # setup:
-  #   uses: ./.github/workflows/setup.yml
-  #   with:
-  #     working_dir: users-api
   test:
     runs-on: ubuntu-latest
     steps:
-      # - name: Getting the code
-      #   uses: ./.github/workflows/setup.yml
-      #   with:
-      #     working_dir: users-api
       - name: Get the code
         uses: actions/checkout@v3
       - name: Install main dependencies
@@ -25,11 +17,18 @@ jobs:
         working-directory: users-api
         run: npm install --save-dev jest @shelf/jest-mongodb
       - name: Run test
+        id: test
         working-directory: users-api
         run: |
           ls
-          cat package.json
           npm run test
+      - name: Upload test report
+        if: failure() && steps.test.outcome == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: ./users-api/reports/
+
   build:
     needs: test
     uses: ./.github/workflows/image-builder.yml

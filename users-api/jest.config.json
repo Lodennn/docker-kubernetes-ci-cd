@@ -1,3 +1,4 @@
 {
-  "preset": "@shelf/jest-mongodb"
+  "preset": "@shelf/jest-mongodb",
+  "reporters": ["default", ["jest-junit", { "outputDirectory": "./reports" }]]
 }

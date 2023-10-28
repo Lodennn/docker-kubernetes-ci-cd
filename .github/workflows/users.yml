@@ -19,8 +19,8 @@ jobs:
           - 27017:27017
         env:
           MONGO_INITDB_DATABASE: users
-          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_INITDB_ROOT_PASSWORD }}
 
     steps:
       - name: Get the code

@@ -58,8 +58,7 @@ jobs:
 
       - name: Add cluster and user info to kubectl
         run: |
-          kubectl config set-cluster minikube-remote --server=http://121c-45-243-168-75.ngrok.io --insecure-skip-tls-verify=true
-          kubectl config set-credentials minikube-remote
+          kubectl config set-cluster minikube-remote --server=https://a3c1-45-243-168-75.ngrok-free.app/ --insecure-skip-tls-verify=true
 
       - name: Deploy to Minikube
         run: |

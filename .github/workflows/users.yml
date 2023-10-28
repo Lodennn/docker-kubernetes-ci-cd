@@ -5,6 +5,7 @@ on:
       - users
 jobs:
   test:
+    environment: development
     runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
@@ -29,7 +30,14 @@ jobs:
         uses: ./.github/actions/setup
         with:
           working_dir: users-api
+      - name: adding caching layer on extra dependencies
+        uses: actions/cache@v3
+        id: test-deps-cache
+        with:
+          key: testing-dep-${{ github.sha }}
+          path: users-api/~/.npm
       - name: Install extra dependencies for testing
+        if: steps.test-deps-cache.outcome.cache-hit != 'true'
         working-directory: users-api
         run: npm install --save-dev jest jest-junit @shelf/jest-mongodb
       - name: Run test

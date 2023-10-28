@@ -32,4 +32,5 @@ jobs:
         id: minikube
         uses: medyagh/setup-minikube@master
       - name: get pods
-        run: kubectl get pods -A
+        working-directory: kubernetes/auth
+        run: kubectl apply service.yaml

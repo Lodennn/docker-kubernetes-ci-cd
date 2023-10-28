@@ -43,8 +43,5 @@ jobs:
         run: |
           git config --global user.email "khalednasser788@gmail.com"
           git config --global user.name "Lodenn"
-      - name: push to ci/cd repo
-        run: |
-          git remote add source https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/Lodennn/challenge-ci-cd.git
-
+          git remote add source https://github.com/Lodennn/challenge-ci-cd.git
           git push -u source main

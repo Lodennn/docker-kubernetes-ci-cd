@@ -11,10 +11,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Getting the code
-        uses: ./.github/workflows/setup.yml
-        with:
-          working_dir: users-api
+      # - name: Getting the code
+      #   uses: ./.github/workflows/setup.yml
+      #   with:
+      #     working_dir: users-api
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install main dependencies
+        uses: ./.github/actions/setup
       - name: Install extra dependencies for testing
         working-directory: users-api
         run: npm install --save-dev @shelf/jest-mongodb

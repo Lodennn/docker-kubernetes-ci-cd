@@ -24,6 +24,8 @@ jobs:
       - name: Install extra dependencies for testing
         working-directory: users-api
         run: npm install --save-dev @shelf/jest-mongodb
+      - name: Display current directory files
+        run: ls
       - name: Run test
         run: npm run test
   build:

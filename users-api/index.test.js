@@ -5,12 +5,19 @@ describe("insert", () => {
   let db;
 
   beforeAll(async () => {
-    console.log("globalThis: ", globalThis);
     try {
-      connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      console.log(
+        "DATABASE MONGO URI: ",
+        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
+      );
+      //   connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
+      connection = await MongoClient.connect(
+        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        }
+      );
       db = await connection.db(globalThis.__MONGO_DB_NAME__);
       console.log("*#* CONNECTED TO DATABASE *#*");
     } catch (err) {

@@ -4,12 +4,11 @@ on:
     branches:
       - users
 jobs:
-  setup:
-    uses: ./.github/workflows/setup.yml
-    with:
-      working_dir: users-api
+  # setup:
+  #   uses: ./.github/workflows/setup.yml
+  #   with:
+  #     working_dir: users-api
   test:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Getting the code

@@ -25,9 +25,13 @@ jobs:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
   kubernetes:
+    needs: build-auth-image
     runs-on: ubuntu-latest
     steps:
       - name: Create kubernetes services
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: kubectl version
+        run: |
+          echo "$KUBECONFIG" > kubeconfig.yaml
+          kubectl config view
+          kubectl version

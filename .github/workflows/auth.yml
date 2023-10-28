@@ -28,4 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create kubernetes services
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: kubectl version

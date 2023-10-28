@@ -28,9 +28,8 @@ jobs:
     needs: build-auth-image
     runs-on: ubuntu-latest
     steps:
-      - name: Create kubernetes services
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-        with:
-          args: get pods
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@master
+      - name: get pods
+        run: kubectl get pods -A

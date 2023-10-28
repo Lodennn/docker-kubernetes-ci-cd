@@ -19,9 +19,7 @@ jobs:
       - name: Run test
         id: test
         working-directory: users-api
-        run: |
-          ls
-          npm run test
+        run: npm run test
       - name: Upload test report
         if: failure() && steps.test.outcome == 'failure'
         uses: actions/upload-artifact@v3

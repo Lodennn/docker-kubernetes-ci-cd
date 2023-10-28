@@ -29,9 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create kubernetes services
+        uses: actions-hub/kubectl@master
         env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: |
-          echo "$KUBECONFIG" > kubeconfig.yaml
-          kubectl config view
-          kubectl version
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: get pods

@@ -28,7 +28,8 @@ jobs:
     needs: build-auth-image
     runs-on: ubuntu-latest
     environment: development
-    permissions: write-all
+    permissions:
+      contents: write
     steps:
       - name: Get the code
         uses: actions/checkout@v3

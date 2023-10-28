@@ -49,7 +49,7 @@ jobs:
       #     kubectl apply -f ${{env.KUB_WORKING_DIR}}/service.yaml
       # -----------------------------------------------------------------------
       - name: Config minikube
-        uses: tilt-dev/minikube-local@v0.1.0
+        uses: tilt-dev/minikube-local
         with:
           minikube-version: "1.26.1"
           kubernetes-version: "1.24.0"

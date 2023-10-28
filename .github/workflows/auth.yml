@@ -30,6 +30,7 @@ jobs:
     env:
       KUB_WORKING_DIR: kubernetes/auth
       KUBCONFIG: ${{ secrets.KUBCONFIG }}
+      KUB_CONFIG_PATH: config.yml
 
     steps:
       - name: Get the code
@@ -50,5 +51,6 @@ jobs:
       # -----------------------------------------------------------------------
       - name: Set up Kubectl
         uses: azure/setup-kubectl@v1
-      - name: try kubectl
-        run: kubectl version
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl get pods --kubeconfig=./config.yml

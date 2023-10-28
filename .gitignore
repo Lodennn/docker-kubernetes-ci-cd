@@ -1,7 +1,3 @@
 node_modules
 docker-compose.yaml
 Dockerfile
-ca.crt
-client.crt
-client.key
-config.yml

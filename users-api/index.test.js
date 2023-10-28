@@ -18,7 +18,7 @@ describe("insert", () => {
           useUnifiedTopology: true,
         }
       );
-      db = await connection.db(globalThis.__MONGO_DB_NAME__);
+      db = await connection.db(process.env.MONGO_INITDB_DATABASE);
       console.log("*#* CONNECTED TO DATABASE *#*");
     } catch (err) {
       console.log("*#* FAILED CONNECTION TO DATABASE *#*");

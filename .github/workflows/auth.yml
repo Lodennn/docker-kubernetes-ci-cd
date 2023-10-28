@@ -36,7 +36,8 @@ jobs:
         with:
           repository: ${{github.actor}}/challenge-ci-cd
           ref: main
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
       - name: update resources
         working-directory: kubernetes/auth
         run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml

@@ -5,6 +5,7 @@ describe("insert", () => {
   let db;
 
   beforeAll(async () => {
+    console.log("globalThis: ", globalThis);
     try {
       connection = await MongoClient.connect(globalThis.__MONGO_URI__, {
         useNewUrlParser: true,

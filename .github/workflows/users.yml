@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install main dependencies
         uses: ./.github/actions/setup
+        with:
+          working_dir: users-api
       - name: Install extra dependencies for testing
         working-directory: users-api
         run: npm install --save-dev @shelf/jest-mongodb

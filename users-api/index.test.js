@@ -23,11 +23,14 @@ describe("insert", () => {
     } catch (err) {
       console.log("*#* FAILED CONNECTION TO DATABASE *#*");
     }
-  });
+  }, 60000);
 
   afterAll(async () => {
-    await connection.close();
-  });
+    console.log("connection: ", connection);
+    if (connection) {
+      await connection.close();
+    }
+  }, 60000);
 
   it("should insert a doc into collection", async () => {
     const users = db.collection("users");
@@ -37,5 +40,5 @@ describe("insert", () => {
 
     const insertedUser = await users.findOne({ _id: "some-user-id" });
     expect(insertedUser).toEqual(mockUser);
-  });
+  }, 60000);
 });

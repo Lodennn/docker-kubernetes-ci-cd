@@ -9,6 +9,7 @@ jobs:
     with:
       working_dir: users-api
   test:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Install extra dependencies for testing
@@ -17,7 +18,7 @@ jobs:
       - name: Run test
         run: npm run test
   build:
-    needs: setup
+    needs: test
     uses: ./.github/workflows/image-builder.yml
     with:
       working_dir: users-api

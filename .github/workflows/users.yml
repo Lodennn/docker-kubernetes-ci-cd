@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
       MONGO_DB_HOST: 127.0.0.1:27017
       # AUTH_API_ADDRESS: auth:3000
     services:
@@ -19,8 +19,8 @@ jobs:
           - 27017:27017
         env:
           MONGO_INITDB_DATABASE: users
-          MONGO_INITDB_ROOT_USERNAME: admin # 👈 should be github secrets
-          MONGO_INITDB_ROOT_PASSWORD: secret # 👈 should be github secrets
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
 
     steps:
       - name: Get the code
@@ -40,7 +40,7 @@ jobs:
         if: failure() && steps.test.outcome == 'failure'
         uses: actions/upload-artifact@v3
         with:
-          name: test-reports
+          name: database-connection-test-report
           path: ./users-api/reports/
 
   build:

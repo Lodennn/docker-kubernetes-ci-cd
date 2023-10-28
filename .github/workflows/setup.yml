@@ -6,9 +6,15 @@ on:
         description: this input helps to determine which folder should we setup
         required: true
         type: string
+    outputs:
+      workspace_path:
+        description: this is the dynamic path for setup workflow
+        value: ${{ jobs.setup.outputs.workspace_path }}
 
 jobs:
   setup:
+    outputs:
+      workspace_path: ${{ steps.information.outputs.workspace_path }}
     name: setting up project
     runs-on: ubuntu-latest
     environment: development
@@ -27,3 +33,6 @@ jobs:
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         working-directory: ${{ inputs.working_dir }}
         run: npm install
+      - name: Expose the workflow path
+        id: information
+        run: echo "workspace_path=${{ github.workspace }}/.github/setup.yml" >> $GITHUB_OUTPUT

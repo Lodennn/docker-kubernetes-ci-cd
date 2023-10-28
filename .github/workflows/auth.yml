@@ -35,7 +35,7 @@ jobs:
         with:
           repository: ${{github.actor}}/challenge-ci-cd
           ref: main
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: update resources
         working-directory: kubernetes/auth
         run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml
@@ -45,6 +45,6 @@ jobs:
           git config --global user.name "Lodenn"
       - name: push to ci/cd repo
         run: |
-          git remote add source https://github.com/Lodennn/challenge-ci-cd
+          git remote add source https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/Lodennn/challenge-ci-cd.git
 
           git push -u source main

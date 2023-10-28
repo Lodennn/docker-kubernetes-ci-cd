@@ -25,3 +25,24 @@ jobs:
     secrets:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
+  deploy:
+    needs: build-auth-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+        with:
+          repository: https://github.com/Lodennn/challenge-ci-cd
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: update resources
+        working-directory: kubernetes/auth
+        run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml
+      - name: configure git
+        run: |
+          git config --global user.email "khalednasser788@gmail.com"
+          git config --global user.name "Lodenn"
+      - name: push to ci/cd repo
+        run: |
+          git remote add source https://github.com/Lodennn/challenge-ci-cd
+          git push -u source main

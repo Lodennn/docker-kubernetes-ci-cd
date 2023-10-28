@@ -46,4 +46,4 @@ jobs:
           git config --global user.name "Lodenn"
           git add .
           git commit -m "update image ${{ github.sha }}"
-          git push -u origin main
+          git push origin main

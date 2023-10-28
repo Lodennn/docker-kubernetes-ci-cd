@@ -51,6 +51,18 @@ jobs:
       - name: Set up Kubectl
         uses: azure/setup-kubectl@v1
 
+      - name: Install Kubernetes tools
+        run: |
+          sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-get update
+          sudo apt-get install -y kubeadm
+
+      - name: Verify kubeadm installation
+        run: |
+          kubeadm version
+
       - name: Configure kubectl context
         run: |
           kubectl config set-context minikube --cluster=minikube --user=minikube

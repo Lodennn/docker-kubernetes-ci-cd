@@ -41,7 +41,6 @@ jobs:
           persist-credentials: true
       - name: update resources
         working-directory: kubernetes/auth
-        ## run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml
         run: 'sed -i "s/\(image: lodenn\/auth-api:\)[a-f0-9]*/\1${{ github.sha }}/" deployment.yaml'
       - name: configure git
         run: |

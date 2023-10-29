@@ -74,6 +74,7 @@ jobs:
   minikube:
     runs-on: ubuntu-latest
     # needs: cluster-update
+    needs: deploy
     environment: development
     steps:
       - uses: actions/checkout@v2

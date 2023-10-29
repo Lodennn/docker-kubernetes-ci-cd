@@ -10,6 +10,11 @@ on:
         required: true
         type: string
         description: image name to be built/pushed
+      image-tag:
+        required: false
+        default: latest
+        type: string
+        description: the tag of the image
     secrets:
       docker_hub_user:
         required: true
@@ -30,10 +35,10 @@ jobs:
       - name: build ${{ inputs.image }} image
         working-directory: ${{ inputs.working_dir }}
         run: |
-          echo "docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} ."
-          docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }} .
+          echo "docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }}:${{ inputs.image-tag }} ."
+          docker build -t ${{ secrets.docker_hub_user }}/${{ inputs.image }}:${{ inputs.image-tag }} .
       - name: login to docker hub
         run: docker login -u ${{ secrets.docker_hub_user }} -p ${{ secrets.docker_hub_pass }}
       - name: push docker image
         working-directory: ${{ inputs.image }}
-        run: docker push ${{ secrets.docker_hub_user }}/${{ inputs.image }}
+        run: docker push ${{ secrets.docker_hub_user }}/${{ inputs.image }}:${{ inputs.image-tag }}

@@ -21,6 +21,7 @@ jobs:
     with:
       working_dir: auth-api
       image: auth-api
+      image-tag: ${{ github.sha }}
     secrets:
       docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
       docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
@@ -37,9 +38,6 @@ jobs:
           repository: ${{github.actor}}/challenge-ci-cd
           ref: main
           token: ${{ secrets.MY_PAT }}
-          # MY_PAT
-          # SSH_DEPLOY_KEY
-          # GITHUB_TOKEN
           persist-credentials: true
       - name: update resources
         working-directory: kubernetes/auth

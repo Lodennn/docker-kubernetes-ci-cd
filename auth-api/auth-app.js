@@ -20,6 +20,7 @@ app.use((err, req, res, next) => {
   console.log(err);
   let code = 500;
   let message = "Something went wrong.";
+  console.log("message: ", message);
   if (err.code) {
     code = err.code;
   }

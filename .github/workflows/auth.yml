@@ -73,7 +73,7 @@ jobs:
   #         kubectl apply -f development.yaml
   minikube:
     runs-on: ubuntu-latest
-    needs: cluster-update
+    # needs: cluster-update
     environment: development
     steps:
       - uses: actions/checkout@v2

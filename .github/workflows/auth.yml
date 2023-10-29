@@ -49,25 +49,35 @@ jobs:
           git add -A
           git commit -am "update image ${{ github.sha }}"
           git push origin main
-  cluster-update:
-    needs: deploy
+  # cluster-update:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   environment: development
+  #   steps:
+  #     - name: Get the code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         repository: ${{github.actor}}/challenge-ci-cd
+  #         ref: main
+  #         token: ${{ secrets.MY_PAT }}
+  #         persist-credentials: true
+  #     - name: Set up Kubectl
+  #       uses: azure/setup-kubectl@v1
+  #     - name: Deploy to Minikube
+  #       working-directory: kubernetes/auth
+  #       run: |
+  #         kubectl config set-credentials lodenn --username=admin --password=123456
+  #         kubectl config set-cluster minikube --server=https://3a4b-45-243-168-75.ngrok-free.app --insecure-skip-tls-verify=true
+  #         kubectl config set-context minikube --cluster=minikube --user=lodenn
+  #         kubectl config use-context minikube
+  #         kubectl apply -f development.yaml
+  minikube:
     runs-on: ubuntu-latest
+    needs: cluster-update
     environment: development
     steps:
-      - name: Get the code
-        uses: actions/checkout@v4
-        with:
-          repository: ${{github.actor}}/challenge-ci-cd
-          ref: main
-          token: ${{ secrets.MY_PAT }}
-          persist-credentials: true
-      - name: Set up Kubectl
-        uses: azure/setup-kubectl@v1
-      - name: Deploy to Minikube
-        working-directory: kubernetes/auth
-        run: |
-          kubectl config set-credentials lodenn --username=admin --password=123456
-          kubectl config set-cluster minikube --server=https://3a4b-45-243-168-75.ngrok-free.app --insecure-skip-tls-verify=true
-          kubectl config set-context minikube --cluster=minikube --user=lodenn
-          kubectl config use-context minikube
-          kubectl apply -f development.yaml
+      - uses: actions/checkout@v2
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+      - name: Try the cluster !
+        run: kubectl get pods

@@ -41,7 +41,6 @@ jobs:
           persist-credentials: true
       - name: update resources
         working-directory: kubernetes/auth
-        # run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml
         run: 'sed -i "s/\(image: lodenn\/auth-api:\)[a-f0-9]*/\1${{ github.sha }}/" deployment.yaml'
       - name: configure git
         run: |
@@ -50,3 +49,12 @@ jobs:
           git add -A
           git commit -am "update image ${{ github.sha }}"
           git push origin main
+  cluster-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Minikube
+        run: |
+          kubectl config set-cluster minikube --server=https://3a4b-45-243-168-75.ngrok-free.app
+          kubectl config set-context minikube --cluster=minikube
+          kubectl config use-context minikube
+          kubectl apply -f development.yaml

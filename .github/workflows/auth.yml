@@ -50,6 +50,7 @@ jobs:
           git commit -am "update image ${{ github.sha }}"
           git push origin main
   cluster-update:
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Minikube

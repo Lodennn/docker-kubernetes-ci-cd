@@ -32,12 +32,13 @@ jobs:
       contents: write
     steps:
       - name: Get the code
-        uses: actions/checkout@v3
-        with:
-          repository: ${{github.actor}}/challenge-ci-cd
-          ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-          persist-credentials: true
+        # uses: actions/checkout@v3
+        # with:
+        #   repository: ${{github.actor}}/challenge-ci-cd
+        #   ref: main
+        #   token: ${{ secrets.SSH_DEPLOY_KEY }}
+        #   persist-credentials: true
+        run: git clone https://github.com/Lodennn/challenge-ci-cd.git
       - name: update resources
         working-directory: kubernetes/auth
         run: sed -i 's/latest/${{ github.sha }}/g' deployment.yaml
@@ -53,7 +54,6 @@ jobs:
       #     target-branch: main
       - name: configure git
         run: |
-          git clone https://github.com/Lodennn/challenge-ci-cd.git
           git config --global user.email "khalednasser788@gmail.com"
           git config --global user.name "Lodenn"
           git add -A

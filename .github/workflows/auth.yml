@@ -67,7 +67,7 @@ jobs:
         working-directory: kubernetes/auth
         run: |
           kubectl config set-credentials lodenn --username=admin --password=123456
-          kubectl config set-cluster minikube --server=https://3a4b-45-243-168-75.ngrok-free.app
-          kubectl config set-context minikube --cluster=minikube
+          kubectl config set-cluster minikube --server=https://3a4b-45-243-168-75.ngrok-free.app --insecure-skip-tls-verify=true
+          kubectl config set-context minikube --cluster=minikube --user=lodenn
           kubectl config use-context minikube
           kubectl apply -f development.yaml

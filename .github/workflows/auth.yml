@@ -61,6 +61,8 @@ jobs:
           ref: main
           token: ${{ secrets.MY_PAT }}
           persist-credentials: true
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v1
       - name: Deploy to Minikube
         working-directory: kubernetes/auth
         run: |

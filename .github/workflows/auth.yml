@@ -36,7 +36,10 @@ jobs:
         with:
           repository: ${{github.actor}}/challenge-ci-cd
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_PAT }}
+          # MY_PAT
+          # SSH_DEPLOY_KEY
+          # GITHUB_TOKEN
           persist-credentials: true
       - name: update resources
         working-directory: kubernetes/auth
@@ -45,7 +48,6 @@ jobs:
         run: |
           git config --global user.email "khalednasser788@gmail.com"
           git config --global user.name "Lodenn"
-          git remote add source https://x-access-token:${{ secrets.MY_PAT }}@github.com/Lodennn/challenge-ci-cd.git
-          git add .
+          git add -A
           git commit -am "update image ${{ github.sha }}"
-          git push source main
+          git push origin main

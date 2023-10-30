@@ -47,3 +47,6 @@ jobs:
           git add -A
           git commit -am "update image ${{ github.sha }}"
           git push origin main
+  deploy-users-app:
+    needs: deploy
+    uses: ./.github/workflows/users.yml

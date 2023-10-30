@@ -65,8 +65,6 @@ jobs:
     needs: build-users-image
     runs-on: ubuntu-latest
     environment: development
-    permissions:
-      contents: write
     steps:
       - name: Get the code
         uses: actions/checkout@v4

@@ -75,7 +75,7 @@ jobs:
           persist-credentials: true
       - name: update resources
         working-directory: kubernetes/users
-        run: 'sed -i "s/\(image: lodenn\/auth-api:\)[a-f0-9]*/\1${{ github.sha }}/" deployment.yaml'
+        run: 'sed -i "s/\(image: lodenn\/users-api:\)[a-f0-9]*/\1${{ github.sha }}/" deployment.yaml'
       - name: configure git
         run: |
           git config --global user.email "khalednasser788@gmail.com"

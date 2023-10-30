@@ -13,7 +13,6 @@ services:
       - data:/data/db
   auth:
     container_name: auth-app
-    # build: "./auth-api"
     image: lodenn/auth-api:latest
     ports:
       - 3000:3000
@@ -23,7 +22,6 @@ services:
       - mongodb
   users:
     container_name: users-app
-    # build: "./users-api"
     image: lodenn/users-api:latest
     ports:
       - 80:80

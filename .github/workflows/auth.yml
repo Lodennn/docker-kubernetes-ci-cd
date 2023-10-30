@@ -50,3 +50,6 @@ jobs:
   deploy-users-app:
     needs: deploy
     uses: ./.github/workflows/users.yml
+    secrets:
+      DB_USER: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      DB_PASS: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}

@@ -8,10 +8,14 @@ describe("insert", () => {
     try {
       console.log(
         "TEST CASE DB: ",
-        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
+        `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
       );
+      // ### SERVICE MONGODB CONNECTION
+      // connection = await MongoClient.connect(
+      //   `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,
+      // ### MONGODB ATLAS CLUSTER CONNECTION
       connection = await MongoClient.connect(
-        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,
+        `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,
         {
           useNewUrlParser: true,
           useUnifiedTopology: true,

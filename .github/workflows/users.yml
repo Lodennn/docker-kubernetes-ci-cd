@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - users
+  workflow_call:
 jobs:
   test:
     environment: development

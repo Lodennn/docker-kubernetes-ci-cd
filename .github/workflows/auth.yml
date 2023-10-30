@@ -49,3 +49,11 @@ jobs:
           git add -A
           git commit -am "update image ${{ github.sha }}"
           git push origin main
+  deploy-users-app:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Users App
+        uses: ./.github/workflows/users.yml

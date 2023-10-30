@@ -11,6 +11,12 @@ on:
       DB_PASS:
         required: true
         description: docker repo password to upload the image
+      DOCKER_HUB_USER:
+        required: true
+        description: docker repo username to upload the image
+      DOCKER_HUB_PASS:
+        required: true
+        description: docker repo username to upload the image
 #
 jobs:
   test:

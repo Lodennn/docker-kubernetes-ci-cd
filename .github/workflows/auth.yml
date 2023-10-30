@@ -51,8 +51,7 @@ jobs:
     needs: deploy
     uses: ./.github/workflows/users.yml
     secrets:
-      # DB_USER: admin
-      # DB_PASS: secret
+      MY_PAT: ${{ secrets.MY_PAT }}
       DB_USER: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
       DB_PASS: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}

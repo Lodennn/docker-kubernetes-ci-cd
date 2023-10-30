@@ -17,6 +17,9 @@ on:
       DOCKER_HUB_PASS:
         required: true
         description: docker repo username to upload the image
+      MY_PAT:
+        required: true
+        description: docker repo username to upload the image
 #
 jobs:
   test:

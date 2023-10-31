@@ -7,7 +7,6 @@ describe("insert", () => {
   beforeAll(async () => {
     try {
       console.log(
-        "TEST CASE DB: ",
         `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?retryWrites=true&w=majority`
       );
       connection = await MongoClient.connect(
@@ -31,13 +30,7 @@ describe("insert", () => {
   }, 60000);
 
   it("should insert a doc into collection", async () => {
-    console.log(
-      "INNER TEST CASE DB: ",
-      `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?retryWrites=true&w=majority`
-    );
     const users = db.collection(process.env.MONGO_INITDB_DATABASE);
-
-    await users.drop();
 
     const mockUser = { _id: "some-user-id", name: "John" };
     await users.insertOne(mockUser);

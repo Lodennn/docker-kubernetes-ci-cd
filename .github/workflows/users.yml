@@ -3,32 +3,31 @@ on:
   push:
     branches:
       - users
-  workflow_call:
-    secrets:
-      DB_USER:
-        required: true
-        description: docker repo username to upload the image
-      DB_PASS:
-        required: true
-        description: docker repo password to upload the image
-      DOCKER_HUB_USER:
-        required: true
-        description: docker repo username to upload the image
-      DOCKER_HUB_PASS:
-        required: true
-        description: docker repo username to upload the image
-      MY_PAT:
-        required: true
-        description: docker repo username to upload the image
-#
+  # workflow_call:
+  #   secrets:
+  #     DB_USER:
+  #       required: true
+  #       description: docker repo username to upload the image
+  #     DB_PASS:
+  #       required: true
+  #       description: docker repo password to upload the image
+  #     DOCKER_HUB_USER:
+  #       required: true
+  #       description: docker repo username to upload the image
+  #     DOCKER_HUB_PASS:
+  #       required: true
+  #       description: docker repo username to upload the image
+  #     MY_PAT:
+  #       required: true
+  #       description: docker repo username to upload the image
 jobs:
   test:
     environment: development
     runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.DB_USER }}
-      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.DB_PASS }}
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
       MONGO_DB_HOST: 127.0.0.1:27017
       AUTH_API_ADDRESS: auth:3000
     services:

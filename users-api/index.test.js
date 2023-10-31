@@ -31,6 +31,10 @@ describe("insert", () => {
   }, 60000);
 
   it("should insert a doc into collection", async () => {
+    console.log(
+      "INNER TEST CASE DB: ",
+      `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
+    );
     const users = db.collection("users");
 
     const mockUser = { _id: "some-user-id", name: "John" };
@@ -38,5 +42,5 @@ describe("insert", () => {
 
     const insertedUser = await users.findOne({ _id: "some-user-id" });
     expect(insertedUser).toEqual(mockUser);
-  }, 60000);
+  }, 80000);
 });

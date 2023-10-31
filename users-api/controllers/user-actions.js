@@ -34,7 +34,7 @@ const checkUserExistence = async (email) => {
 const getHashedPassword = async (password) => {
   try {
     const response = await axios.get(
-      `http://${process.env.AUTH_API_ADDRESS}/hashed-pw/${password}`
+      `http://${process.env.AUTH_API_ADDRESSS}/hashed-pw/${password}`
     );
     return response.data.hashed;
   } catch (err) {
@@ -43,14 +43,14 @@ const getHashedPassword = async (password) => {
   }
 };
 
-const getTokenForUser = async (password, hashedPassword, uid) => {
+const getTokenForUser = async (password, hashedPassword) => {
+  console.log(password, hashedPassword);
   try {
     const response = await axios.post(
-      `http://${process.env.AUTH_API_ADDRESS}/token`,
+      `http://${process.env.AUTH_API_ADDRESSS}/token`,
       {
         password: password,
         hashedPassword: hashedPassword,
-        userId: uid,
       }
     );
     return response.data.token;
@@ -144,11 +144,7 @@ const verifyUser = async (req, res, next) => {
 
   try {
     console.log(password, existingUser);
-    const token = await getTokenForUser(
-      password,
-      existingUser.password,
-      existingUser.id
-    );
+    const token = await getTokenForUser(password, existingUser.password);
     res.status(200).json({ token: token, userId: existingUser.id });
   } catch (err) {
     next(err);

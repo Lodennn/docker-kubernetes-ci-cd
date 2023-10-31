@@ -42,5 +42,5 @@ describe("insert", () => {
 
     const insertedUser = await users.findOne({ _id: "some-user-id" });
     expect(insertedUser).toEqual(mockUser);
-  }, 80000);
+  }, 60000);
 });

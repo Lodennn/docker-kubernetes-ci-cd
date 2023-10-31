@@ -25,10 +25,10 @@ jobs:
     environment: development
     runs-on: ubuntu-latest
     env:
-      MONGO_INITDB_DATABASE: ${{ secrets.MONGO_INITDB_DATABASE }}
+      MONGO_INITDB_DATABASE: users
       MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
       MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
-      MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
+      MONGO_DB_HOST: cluster0.bzovdv3.mongodb.net
       AUTH_API_ADDRESS: auth:3000
     services:
       mongodb:
@@ -36,7 +36,7 @@ jobs:
         ports:
           - 27017:27017
         env:
-          MONGO_INITDB_DATABASE: ${{ env.MONGO_INITDB_DATABASE }}
+          MONGO_INITDB_DATABASE: users
           MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_INITDB_ROOT_USERNAME }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_INITDB_ROOT_PASSWORD }}
 

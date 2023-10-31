@@ -1,0 +1,74 @@
+name: Tasks Workflow
+on:
+  push:
+    branches:
+      - tasks
+jobs:
+  test:
+    environment: development
+    runs-on: ubuntu-latest
+    env:
+      MONGO_INITDB_DATABASE: tasks
+      MONGO_INITDB_ROOT_USERNAME: Admin
+      MONGO_INITDB_ROOT_PASSWORD: DIf4CMoPGnz49cCi
+      MONGO_DB_HOST: cluster0.fmirxs9.mongodb.net
+      AUTH_API_ADDRESS: auth:3000
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install main dependencies
+        uses: ./.github/actions/setup
+        with:
+          working_dir: tasks-api
+      - name: adding caching layer on extra dependencies
+        uses: actions/cache@v3
+        id: test-deps-cache
+        with:
+          key: testing-dep-${{ github.sha }}
+          path: tasks-api/~/.npm
+      - name: Install extra dependencies for testing
+        if: steps.test-deps-cache.outcome.cache-hit != 'true'
+        working-directory: tasks-api
+        run: npm install --save-dev jest jest-junit @shelf/jest-mongodb
+      - name: Run test
+        id: test
+        working-directory: tasks-api
+        run: npm run test
+      - name: Upload test report
+        if: failure() && steps.test.outcome == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: database-connection-test-report
+          path: ./tasks-api/reports/
+  build-tasks-image:
+    needs: test
+    uses: ./.github/workflows/image-builder.yml
+    with:
+      working_dir: tasks-api
+      image: tasks-api
+      image-tag: ${{ github.sha }}
+    secrets:
+      docker_hub_user: ${{ secrets.DOCKER_HUB_USER }}
+      docker_hub_pass: ${{ secrets.DOCKER_HUB_PASS }}
+  deploy:
+    needs: build-tasks-image
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{github.actor}}/challenge-ci-cd
+          ref: main
+          token: ${{ secrets.MY_PAT }}
+          persist-credentials: true
+      - name: update resources
+        working-directory: kubernetes/tasks
+        run: 'sed -i "s/\(image: lodenn\/tasks-api:\)[a-f0-9]*/\1${{ github.sha }}/" deployment.yaml'
+      - name: configure git
+        run: |
+          git config --global user.email "khalednasser788@gmail.com"
+          git config --global user.name "Lodenn"
+          git add -A
+          git commit -am "update image ${{ github.sha }}"
+          git push origin main

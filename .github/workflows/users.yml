@@ -3,45 +3,16 @@ on:
   push:
     branches:
       - users
-  # workflow_call:
-  #   secrets:
-  #     DB_USER:
-  #       required: true
-  #       description: docker repo username to upload the image
-  #     DB_PASS:
-  #       required: true
-  #       description: docker repo password to upload the image
-  #     DOCKER_HUB_USER:
-  #       required: true
-  #       description: docker repo username to upload the image
-  #     DOCKER_HUB_PASS:
-  #       required: true
-  #       description: docker repo username to upload the image
-  #     MY_PAT:
-  #       required: true
-  #       description: docker repo username to upload the image
 jobs:
   test:
     environment: development
     runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
-      # MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-      # MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
       MONGO_INITDB_ROOT_USERNAME: Admin
       MONGO_INITDB_ROOT_PASSWORD: DIf4CMoPGnz49cCi
       MONGO_DB_HOST: cluster0.n0mzg46.mongodb.net
       AUTH_API_ADDRESS: auth:3000
-    # services:
-    #   mongodb:
-    #     image: mongo
-    #     ports:
-    #       - 27017:27017
-    #     env:
-    #       MONGO_INITDB_DATABASE: users
-    #       MONGO_INITDB_ROOT_USERNAME: ${{ env.MONGO_INITDB_ROOT_USERNAME }}
-    #       MONGO_INITDB_ROOT_PASSWORD: ${{ env.MONGO_INITDB_ROOT_PASSWORD }}
-
     steps:
       - name: Get the code
         uses: actions/checkout@v3

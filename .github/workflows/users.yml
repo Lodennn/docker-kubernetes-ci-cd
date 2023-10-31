@@ -26,8 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGO_INITDB_DATABASE: users
-      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+      # MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      # MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+      MONGO_INITDB_ROOT_USERNAME: Admin
+      MONGO_INITDB_ROOT_PASSWORD: DIf4CMoPGnz49cCi
       MONGO_DB_HOST: cluster0.n0mzg46.mongodb.net
       AUTH_API_ADDRESS: auth:3000
     # services:

@@ -36,7 +36,7 @@ const verifyUser = async (req, res, next) => {
     return next(error);
   }
 
-  console.log("TASKS USER AUTH: ", response.data);
+  console.log("TASKS USER AUTH:  ", response.data);
 
   req.userId = response.data.uid;
   next();

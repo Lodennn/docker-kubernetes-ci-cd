@@ -25,6 +25,7 @@ const verifyUser = async (req, res, next) => {
   let response;
 
   try {
+    console.log(`http://${process.env.AUTH_API_ADDRESS}/verify-token`);
     response = await axios.post(
       `http://${process.env.AUTH_API_ADDRESS}/verify-token`,
       {

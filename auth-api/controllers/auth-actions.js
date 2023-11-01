@@ -34,6 +34,13 @@ const createToken = (userId) => {
 const verifyToken = (token) => {
   try {
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+    console.log(
+      "decodedToken: ",
+      decodedToken,
+      "+",
+      token,
+      process.env.TOKEN_KEY
+    );
     return decodedToken;
   } catch (err) {
     createAndThrowError("Could not verify token.", 401);

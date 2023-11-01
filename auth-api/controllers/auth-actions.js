@@ -25,18 +25,15 @@ const verifyPasswordHash = async (password, hashedPassword) => {
   }
 };
 
-const createToken = (userId) => {
-  console.log("process.env.TOKEN_KEY: ", process.env.TOKEN_KEY);
-  return jwt.sign({ uid: userId }, process.env.TOKEN_KEY, {
+const createToken = () => {
+  return jwt.sign({}, process.env.TOKEN_KEY, {
     expiresIn: "1h",
   });
 };
 
 const verifyToken = (token) => {
-  console.log("process.env.TOKEN_KEY: ", process.env.TOKEN_KEY);
   try {
-    const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-    return decodedToken;
+    jwt.verify(token, process.env.TOKEN_KEY);
   } catch (err) {
     createAndThrowError("Could not verify token.", 401);
   }
@@ -53,7 +50,6 @@ const getHashedPassword = async (req, res, next) => {
 };
 
 const getToken = async (req, res, next) => {
-  const userId = req.body.userId;
   const password = req.body.password;
   const hashedPassword = req.body.hashedPassword;
   try {
@@ -62,7 +58,7 @@ const getToken = async (req, res, next) => {
     return next(err);
   }
 
-  const token = createToken(userId);
+  const token = createToken();
 
   res.status(200).json({ token });
 };
@@ -70,9 +66,9 @@ const getToken = async (req, res, next) => {
 const getTokenConfirmation = (req, res) => {
   const token = req.body.token;
 
-  const decodedToken = verifyToken(token);
+  verifyToken(token);
 
-  res.status(200).json({ uid: decodedToken.uid });
+  res.status(200).json({});
 };
 
 exports.getHashedPassword = getHashedPassword;

@@ -32,14 +32,14 @@ describe("insert", () => {
   it("should insert a doc into collection", async () => {
     const users = db.collection(process.env.MONGO_INITDB_DATABASE);
 
-    console.log("[COLLECTION] users: ", users);
+    const randomId = Math.random() * 10 + new Date().getTime();
 
-    await users.drop();
+    console.log("[COLLECTION] ID: ", randomId);
 
-    const mockUser = { _id: "some-user-id", name: "John" };
+    const mockUser = { _id: randomId, name: "John" };
     await users.insertOne(mockUser);
 
-    const insertedUser = await users.findOne({ _id: "some-user-id" });
+    const insertedUser = await users.findOne({ _id: randomId });
     expect(insertedUser).toEqual(mockUser);
   }, 60000);
 });

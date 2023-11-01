@@ -1,16 +1,16 @@
 version: "3.7"
 services:
-  mongodb:
-    container_name: mongodb
-    image: mongo
-    environment:
-      - MONGO_INITDB_DATABASE=users
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=secret
-    ports:
-      - 27017:27017
-    volumes:
-      - data:/data/db
+  # mongodb:
+  #   container_name: mongodb
+  #   image: mongo
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=users
+  #     - MONGO_INITDB_ROOT_USERNAME=admin
+  #     - MONGO_INITDB_ROOT_PASSWORD=secret
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - data:/data/db
   auth:
     container_name: auth-app
     image: lodenn/auth-api:latest
@@ -18,8 +18,8 @@ services:
       - 3000:3000
     environment:
       - TOKEN_KEY=secrettoken
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
   users:
     container_name: users-app
     image: lodenn/users-api:latest
@@ -32,7 +32,7 @@ services:
       - MONGO_DB_HOST=cluster0.cafimcd.mongodb.net
       - AUTH_API_ADDRESS=auth:3000
     depends_on:
-      - mongodb
+      # - mongodb
       - auth
     volumes:
       - "D:/Programming/Courses/Docker, Kubernetes, CICD/challenge/users-api:/app/user"
@@ -50,7 +50,7 @@ services:
     volumes:
       - tasks:/app
     depends_on:
-      - mongodb
+      # - mongodb
       - auth
 volumes:
   data:

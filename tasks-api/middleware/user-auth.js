@@ -1,14 +1,14 @@
-const axios = require('axios');
+const axios = require("axios");
 
-const { createError, createAndThrowError } = require('../helpers/error');
+const { createError, createAndThrowError } = require("../helpers/error");
 
 const retrieveToken = (headers) => {
-  if (!headers.authorization || headers.authorization === '') {
-    createAndThrowError('Could not authenticate user.', 401);
+  if (!headers.authorization || headers.authorization === "") {
+    createAndThrowError("Could not authenticate user.", 401);
   }
-  const token = headers.authorization.split(' ')[1];
-  if (!token || token === '') {
-    createAndThrowError('Could not authenticate user.', 401);
+  const token = headers.authorization.split(" ")[1];
+  if (!token || token === "") {
+    createAndThrowError("Could not authenticate user.", 401);
   }
   return token;
 };
@@ -32,9 +32,11 @@ const verifyUser = async (req, res, next) => {
       }
     );
   } catch (err) {
-    const error = createError('Could not authenticate user.', 401);
+    const error = createError("Could not authenticate user.", 401);
     return next(error);
   }
+
+  console.log("TASKS USER AUTH: ", response.data);
 
   req.userId = response.data.uid;
   next();

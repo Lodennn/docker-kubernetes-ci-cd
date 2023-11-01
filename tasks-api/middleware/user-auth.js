@@ -36,8 +36,8 @@ const verifyUser = async (req, res, next) => {
     const error = createError("Could not authenticate user.", 401);
     return next(error);
   }
-
-  console.log("TASKS USER AUTH:  ", response.data);
+  console.log("token: ", token);
+  console.log("response: ", response);
 
   req.userId = response.data.uid;
   next();

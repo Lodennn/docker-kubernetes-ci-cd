@@ -1,15 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Task = require('../models/task');
-const { createError } = require('../helpers/error');
+const Task = require("../models/task");
+const { createError } = require("../helpers/error");
 
 const getTasks = async (req, res, next) => {
+  console.log("GET TASKS API: ", req.userId);
   let tasks;
 
   try {
     tasks = await Task.find({ user: req.userId });
+    console.log("GET TASKS API - TASKS: ", tasks);
   } catch (err) {
-    const error = createError('Failed to fetch tasks.', 500);
+    const error = createError("Failed to fetch tasks.", 500);
     return next(error);
   }
 
@@ -20,17 +22,18 @@ const getTasks = async (req, res, next) => {
 
 const deleteTask = async (req, res, next) => {
   const taskId = req.params.id;
+  console.log("DELETE TASKS API: ", req.params.id, "taskId: ", taskId);
   let task;
   try {
     task = await Task.findOne({ _id: taskId });
   } catch (err) {
-    const error = createError('Failed to delete task.', 500);
+    const error = createError("Failed to delete task.", 500);
     return next(error);
   }
 
   if (task.user.toString() !== req.userId) {
     const error = createError(
-      'You are not authorized to delete this task.',
+      "You are not authorized to delete this task.",
       403
     );
     return next(error);
@@ -39,14 +42,15 @@ const deleteTask = async (req, res, next) => {
   try {
     await Task.deleteOne({ _id: taskId });
   } catch (err) {
-    const error = createError('Failed to delete task.', 500);
+    const error = createError("Failed to delete task.", 500);
     return next(error);
   }
 
-  res.status(200).json({ message: 'Task deleted!' });
+  res.status(200).json({ message: "Task deleted!" });
 };
 
 const createTask = async (req, res, next) => {
+  console.log("CREATE TASKS API: ", req.userId);
   const title = req.body.title;
   const text = req.body.text;
   const newTask = new Task({
@@ -54,13 +58,15 @@ const createTask = async (req, res, next) => {
     text,
     user: mongoose.Types.ObjectId(req.userId),
   });
+  console.log("CREATE TASKS API - newTask: ", newTask);
 
   let savedTask;
 
   try {
     savedTask = await newTask.save();
+    console.log("CREATE TASKS API - savedTask: ", savedTask);
   } catch (err) {
-    const error = createError('Failed to save task.', 500);
+    const error = createError("Failed to save task.", 500);
     return next(error);
   }
 

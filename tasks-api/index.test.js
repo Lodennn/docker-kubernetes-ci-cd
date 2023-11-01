@@ -29,7 +29,7 @@ describe("insert", () => {
   it("should insert a doc into collection", async () => {
     const users = db.collection(process.env.MONGO_INITDB_DATABASE);
 
-    const randomId = Math.trunc(Math.random() * 10 + new Date().getTime());
+    const randomId = Math.trunc(Math.random() * 5 + new Date().getTime());
 
     const mockUser = { _id: randomId, name: "John" };
     await users.insertOne(mockUser);

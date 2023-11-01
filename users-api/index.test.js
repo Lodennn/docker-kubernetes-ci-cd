@@ -6,9 +6,6 @@ describe("insert", () => {
 
   beforeAll(async () => {
     try {
-      console.log(
-        `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?retryWrites=true&w=majority`
-      );
       connection = await MongoClient.connect(
         `mongodb+srv://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_DB_HOST}/${process.env.MONGO_INITDB_DATABASE}?retryWrites=true&w=majority`,
         {
@@ -32,12 +29,12 @@ describe("insert", () => {
   it("should insert a doc into collection", async () => {
     const users = db.collection(process.env.MONGO_INITDB_DATABASE);
 
-    await users.drop();
+    const randomId = Math.trunc(Math.random() * 10 + new Date().getTime());
 
-    const mockUser = { _id: "some-user-id", name: "John" };
+    const mockUser = { _id: randomId, name: "John" };
     await users.insertOne(mockUser);
 
-    const insertedUser = await users.findOne({ _id: "some-user-id" });
+    const insertedUser = await users.findOne({ _id: randomId });
     expect(insertedUser).toEqual(mockUser);
   }, 60000);
 });

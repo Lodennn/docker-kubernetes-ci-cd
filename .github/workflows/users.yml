@@ -11,7 +11,7 @@ jobs:
       MONGO_INITDB_DATABASE: users
       MONGO_INITDB_ROOT_USERNAME: Admin
       MONGO_INITDB_ROOT_PASSWORD: DIf4CMoPGnz49cCi
-      MONGO_DB_HOST: cluster0.cafimcd.mongodb.net
+      MONGO_DB_HOST: cluster0.4ilq27g.mongodb.net
       AUTH_API_ADDRESS: auth:3000
     steps:
       - name: Get the code

@@ -32,6 +32,8 @@ describe("insert", () => {
   it("should insert a doc into collection", async () => {
     const users = db.collection(process.env.MONGO_INITDB_DATABASE);
 
+    console.log("[COLLECTION] users: ", users);
+
     await users.drop();
 
     const mockUser = { _id: "some-user-id", name: "John" };

@@ -34,13 +34,6 @@ const createToken = (userId) => {
 const verifyToken = (token) => {
   try {
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-    console.log(
-      "decodedToken: ",
-      decodedToken,
-      "+",
-      token,
-      process.env.TOKEN_KEY
-    );
     return decodedToken;
   } catch (err) {
     createAndThrowError("Could not verify token.", 401);
@@ -73,12 +66,9 @@ const getToken = async (req, res, next) => {
 };
 
 const getTokenConfirmation = (req, res) => {
-  console.log("######### getTokenConfirmation ##########");
   const token = req.body.token;
 
   const decodedToken = verifyToken(token);
-
-  console.log("getTokenConfirmation: ", decodedToken.uid);
 
   res.status(200).json({ uid: decodedToken.uid });
 };

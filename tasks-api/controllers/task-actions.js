@@ -4,7 +4,7 @@ const Task = require("../models/task");
 const { createError } = require("../helpers/error");
 
 const getTasks = async (req, res, next) => {
-  console.log("GET TASKS API: req: ", JSON.stringify(req));
+  console.log("GET TASKS API: req: ", req);
   console.log("GET TASKS API: ", req.userId);
   let tasks;
 

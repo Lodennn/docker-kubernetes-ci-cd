@@ -66,6 +66,7 @@ const getToken = async (req, res, next) => {
 };
 
 const getTokenConfirmation = (req, res) => {
+  console.log("######### getTokenConfirmation ##########");
   const token = req.body.token;
 
   const decodedToken = verifyToken(token);

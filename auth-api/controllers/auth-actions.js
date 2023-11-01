@@ -70,6 +70,8 @@ const getTokenConfirmation = (req, res) => {
 
   const decodedToken = verifyToken(token);
 
+  console.log("getTokenConfirmation: ", decodedToken.uid);
+
   res.status(200).json({ uid: decodedToken.uid });
 };
 

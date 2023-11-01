@@ -34,6 +34,8 @@ services:
     depends_on:
       - mongodb
       - auth
+    volumes:
+      - "D:/Programming/Courses/Docker, Kubernetes, CICD/challenge/users-api:/app/user"
   tasks:
     container_name: tasks-app
     image: lodenn/tasks-api:latest

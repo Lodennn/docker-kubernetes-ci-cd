@@ -8,7 +8,7 @@ jobs:
     environment: development
     runs-on: ubuntu-latest
     env:
-      MONGO_INITDB_DATABASE: tasks
+      MONGO_INITDB_DATABASE: users
       MONGO_INITDB_ROOT_USERNAME: Admin
       MONGO_INITDB_ROOT_PASSWORD: DIf4CMoPGnz49cCi
       MONGO_DB_HOST: cluster0.cafimcd.mongodb.net

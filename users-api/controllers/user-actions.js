@@ -44,7 +44,7 @@ const getHashedPassword = async (password) => {
 };
 
 const getTokenForUser = async (password, hashedPassword) => {
-  console.log(password, hashedPassword);
+  console.log("getTokenForUser: ", password, hashedPassword);
   try {
     const response = await axios.post(
       `http://${process.env.AUTH_API_ADDRESS}/token`,
